@@ -115,15 +115,42 @@ Figure -11 Hex file for simulation
 Step 9: Select the hex file from the Kiel program folder and import the program in to the microcontroller as shown in figure 11 ,  debug and if no errors in connections are found, run the VSM simulation to view the output.
 
 
-### Kiel - Program  
+### Kiel - Program 
+```
+#include<LPC214X.h>      //Define LPC2148 Header File
+#define led (1<<2)       //led macro for pin 2 of port0
+#define sw (1<<10)       // sw macro for pin 10 of port0
+int main(void)
+{
+   unsigned int x;
+   IO0DIR|= (~sw);       //Configuration P1.24 - P1.31 as input
+   IO0DIR|= led;         //Configuration P1.16 - P1.23 as Output
+   while(1)
+	  {
+	       x=IOPIN0 & sw;  //save status of sw in variable x
+		   if(x==sw)       //if switch open
+		     {
+			    IOCLR0|=led;   //LED OFF
+			 }
+			 else              //if switch close
+			 {
+			    IOSET0|=led;   //LED ON
+			 }
+		 }
+}
+```
+
+### Output screen shots :
+
+![exp 3 cl](https://user-images.githubusercontent.com/93427253/193448832-c822bcdd-3ec2-4bb1-ad52-e8a0aa1ad0ac.png)
+
+![exp 3 off](https://user-images.githubusercontent.com/93427253/193448842-315c66fe-b9c2-420b-8548-1d11561f13cf.png)
+### CIRCUIT DIAGRAM 
+![exp 3 pdf](https://user-images.githubusercontent.com/93427253/193448850-c246bf2b-567f-4390-a6ea-e54ae7863faf.png)
 
 
 ### Result :
 Interfacing a digital output with ARM microcontroller is executed 
-
-### Output screen shots :
-
-
 
 
 
